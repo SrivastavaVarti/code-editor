@@ -1,0 +1,49 @@
+html, body{
+    height: 100%;
+}
+body{
+    overflow: hidden;
+}
+
+.editor {
+    width: 90%;
+    height: 85vh;
+    box-shadow: 4px 4px 5px gray;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+  
+.editor__header {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    background-color: rgb(42, 41, 41);
+    padding: 10px 20px;
+    color: white;
+    box-shadow: 4px 4px 5px gray;
+}
+  
+.editor__nav {
+      padding: 0;
+      display: flex;
+      gap: 20px;
+}
+
+.editor__nav-button{
+    padding: 0.9vw 2.5vh;
+    /* box-shadow: 5px 5px 2px grey; */
+    border-radius: 5px;
+    background: rgb(79, 77, 77);
+    border: 1px solid black;
+    color: white;
+}
+
+.CodeMirror{
+    min-height: 76vh;
+    font-size: 1.5em;
+    line-height: 1.5; 
+} 
