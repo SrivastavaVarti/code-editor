@@ -15,8 +15,8 @@ import "codemirror/theme/base16-dark.css";
 // importing code mirror js files for different languages
 import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/clike/clike";
-import 'codemirror/mode/css/css';
-import 'codemirror/mode/xml/xml';
+import "codemirror/mode/css/css";
+import "codemirror/mode/xml/xml";
 
 // importing code mirror files for additional functionality
 import "codemirror/addon/edit/closetag";
@@ -26,7 +26,7 @@ function Editor() {
   const [code, setCode] = useState(""); // State to store the code
   const [locked, setLocked] = useState(false); // State to manage lock/unlock
   const [selecTheme, setSelecTheme] = useState("dracula"); //State to manage themes
-  const [selecLang, setSelecLang] = useState("java"); //State to manage themes
+  const [selecLang, setSelecLang] = useState("text/x-java"); //State to manage themes
   const [cmInst, setCminst] = useState(null); //State to manage codemirror instance
   const editorRef = useRef(null);
 
@@ -79,7 +79,30 @@ function Editor() {
       const blob = new Blob([code], { type: "text/plain" });
       const url = URL.createObjectURL(blob);
 
-      var fileName = "Code.js"; //files will be save as code.js
+      var fileName; //files will be save as code.js
+      console.log(selecLang);
+      switch (selecLang) {
+        case "text/x-java":
+          fileName = "JavaCode.java";
+          break;
+        case "text/x-csrc":
+          fileName = "CCode.c";
+          break;
+        case "text/x-c++src":
+          fileName = "CppCode.cpp";
+          break;
+        case "xml":
+          fileName = "Index.html";
+          break;
+        case "css":
+          fileName = "Style.css";
+          break;
+        case "javascript":
+          fileName = "Index.js";
+          break;
+        default:
+          fileName = "text.txt";
+      }
 
       const dnLink = document.createElement("a");
       dnLink.href = url;
@@ -120,7 +143,6 @@ function Editor() {
             value={selecLang}
             onChange={handleLangChange}
           >
-            <option selected>Choose Language</option>
             <option value="text/x-java">Java</option>
             <option value="text/x-csrc">C</option>
             <option value="text/x-c++src">CPP</option>
@@ -134,7 +156,7 @@ function Editor() {
             value={selecTheme}
             onChange={handleThemeChange}
           >
-            <option value="dracula" selected>Dracula</option>
+            <option value="dracula">Dracula</option>
             <option value="base16-light">Base 16-light</option>
             <option value="base16-dark">Base 16-dark</option>
             <option value="duotone-light">Duotone Light</option>
@@ -142,8 +164,11 @@ function Editor() {
           </select>
         </div>
       </div>
+
       {/* Code Editor coding area */}
       <textarea ref={editorRef} id="editorbody"></textarea>
+
+      {/* Code Editor Bottom Menu */}
       <div className="editor__menuBottom">
         <button onClick={handleCopy} className="editor__menuBottom-button">
           Copy
